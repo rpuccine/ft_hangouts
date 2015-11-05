@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.school42.rpuccine.hangouts" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".ContactListActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".ContactDetails"
+            android:label="@string/title_activity_contact_details"
+            android:parentActivityName=".ContactListActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ContactListActivity" />
+        </activity>
+        <activity
+            android:name=".AddContact"
+            android:label="@string/title_activity_add_contact"
+            android:parentActivityName=".ContactListActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ContactListActivity" />
+        </activity>
+
+        <provider
+            android:name=".ContactProvider"
+            android:authorities="contact_provider"
+            android:enabled="true"
+            android:exported="true" >
+        </provider>
+
+        <activity
+            android:name=".EditContact"
+            android:label="@string/title_activity_edit_contact"
+            android:parentActivityName=".ContactDetails"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ContactDetails" />
+        </activity>
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".ContactListActivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ContactListActivity" />
+        </activity>
+    </application>
+
+</manifest>

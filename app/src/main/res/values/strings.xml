@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">Hangouts</string>
+    <string name="action_settings">Settings</string>
+
+    <string name="title_activity_edit_contact">Modification Contact</string>
+    <string name="title_activity_add_contact">Add Contact</string>
+    <string name="title_activity_contact_details">Contact Details</string>
+    <string name="title_activity_settings">Settings</string>
+
+    <string name="db_name">contacts</string>
+        <string name="table_contact_name">contacts</string>
+            <string name="table_contact_col_key">_id</string>
+            <string name="table_contact_col_name">name</string>
+            <string name="table_contact_col_tel">tel</string>
+
+    <string name="first_name_hint">Nom</string>
+    <string name="name_hint">Prénom</string>
+    <string name="tel_hint">Telephone</string>
+    <string name="tel_office_hint">Telephone Travail</string>
+    <string name="mail_hint">Mail</string>
+
+    <string name="toast_contact_added">Contact Enregistré</string>
+    <string name="toast_contact_deleted">Contact Supprimé</string>
+    <string name="toast_contact_edited">Contact Modifié</string>
+    <string name="toast_contact_validate">Renseigner au moins les champs Nom, Prénom et Telephone</string>
+
+    <string name="hello_world">Hello world!</string>
+
+    <string name="pref_theme_title">Theme</string>
+    <string name="pref_theme_dialog_title">Choisissez un Theme</string>
+    <string name="pref_theme_key">KEY_THEME</string>
+
+
+</resources>
