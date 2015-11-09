@@ -84,20 +84,19 @@ public class ContactDetails extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        // Gestion Bouton Edit
+        // Gestion Bouton SMS
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.contactDetailsEdit);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                Calendar calendar = new GregorianCalendar();
-                int h = calendar.get(Calendar.HOUR_OF_DAY);
-                int m = calendar.get(Calendar.MINUTE);
+                /*Snackbar.make(view, "Replace with your own action " + h + "h" + m + "m",
+                        Snackbar.LENGTH_LONG).setAction("Action", null).show();*/
 
-                Snackbar.make(view, "Replace with your own action " + h + "h" + m + "m",
-                        Snackbar.LENGTH_LONG).setAction("Action", null).show();
-                /*setTheme(R.style.AppTheme_NoActionBar_Blue);
-                recreate();*/
+                Intent smsIntent = new Intent(getApplicationContext(), SmsListActivity.class);
+                smsIntent.putExtra(SmsListActivity.EXTRA_PHONE, tel.getText());
+                startActivity(smsIntent);
+
             }
         });
 
