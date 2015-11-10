@@ -10,6 +10,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ public class SmsListActivity extends AppCompatActivity {
     static final String EXTRA_PHONE = "com.school42.rpuccine.hangouts.phone";
 
     final String[] col = {Telephony.TextBasedSmsColumns.ADDRESS,
-            Telephony.TextBasedSmsColumns.DATE_SENT,
+            Telephony.TextBasedSmsColumns.DATE,
             Telephony.TextBasedSmsColumns.BODY};
 
     final Uri smsUri = Telephony.Sms.CONTENT_URI;
@@ -33,11 +34,16 @@ public class SmsListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sms_list);
 
+        // Gestion toolbar
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
         Intent i = getIntent();
         Bundle extra = i.getExtras();
         num = extra.getString(EXTRA_PHONE);
 
-        selection += num;
+        //selection = selection + num;
+        selection = selection + "'+33661684346'";
 
 
         // Test permission et request de celle-ci si non.
@@ -55,21 +61,41 @@ public class SmsListActivity extends AppCompatActivity {
                     smsUri,
                     col,
                     selection,
+                    //null,
                     null,
                     Telephony.Sms.DEFAULT_SORT_ORDER);
 
             LinearLayout container = (LinearLayout) findViewById(R.id.smsListContainer);
-            TextView test = new TextView(getApplicationContext());
+            TextView num = new TextView(this);
+            TextView date = new TextView(this);
+            TextView body = new TextView(this);
 
-            if (resCursor != null) {
-                resCursor.moveToFirst();
-                test.setText(resCursor.getString(2));
+            if (resCursor.moveToFirst()) {
+                //resCursor.moveToFirst();
+                num.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.ADDRESS)));
+                date.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.DATE)));
+                body.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.BODY)));
+
+                num.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                date.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                body.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+
+                container.addView(num);
+                container.addView(date);
+                container.addView(body);
+
                 resCursor.close();
             }
             else {
-                test.setText("No contact found");
+                TextView error = new TextView(this);
+                error.setText(selection);
+                error.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT));
+                container.addView(error);
             }
-            container.addView(test);
         }
     }
 
@@ -86,21 +112,41 @@ public class SmsListActivity extends AppCompatActivity {
                             smsUri,
                             col,
                             selection,
+                            //null,
                             null,
                             Telephony.Sms.DEFAULT_SORT_ORDER);
 
                     LinearLayout container = (LinearLayout) findViewById(R.id.smsListContainer);
-                    TextView test = new TextView(getApplicationContext());
+                    TextView num = new TextView(this);
+                    TextView date = new TextView(this);
+                    TextView body = new TextView(this);
 
-                    if (resCursor != null) {
-                        resCursor.moveToFirst();
-                        test.setText(resCursor.getString(2));
+                    if (resCursor.moveToFirst()) {
+                        //resCursor.moveToFirst();
+                        num.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.ADDRESS)));
+                        date.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.DATE)));
+                        body.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.BODY)));
+
+                        num.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        date.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        body.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+
+                        container.addView(num);
+                        container.addView(date);
+                        container.addView(body);
+
                         resCursor.close();
                     }
                     else {
-                        test.setText("No contact found");
+                        TextView error = new TextView(this);
+                        error.setText("No contact sms found second");
+                        error.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                                LinearLayout.LayoutParams.WRAP_CONTENT));
+                        container.addView(error);
                     }
-                    container.addView(test);
 
                 }
                 else {
@@ -108,6 +154,10 @@ public class SmsListActivity extends AppCompatActivity {
                     // permission denied, boo! Disable the
                     LinearLayout container = (LinearLayout) findViewById(R.id.smsListContainer);
                     TextView test = new TextView(getApplicationContext());
+                    test.setText("permission denied asshole");
+                    //container.setId(255);
+                    test.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT));
                     container.addView(test);
                 }
                 return;
