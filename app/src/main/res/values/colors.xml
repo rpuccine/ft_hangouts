@@ -13,4 +13,7 @@
     <color name="hipsterAccent">#FF0000</color>
 
     <color name="colorNameContactList">#3399FF</color>
+
+    <color name="black">#000000</color>
+    <color name="red">#FF0000</color>
 </resources>
