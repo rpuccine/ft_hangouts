@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.net.Uri;
 import android.provider.Telephony;
 import android.support.v4.app.ActivityCompat;
@@ -11,6 +12,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -72,6 +75,15 @@ public class SmsListActivity extends AppCompatActivity {
             // Construction et remplissage des sms
             buildSmsView(resCursor);
             resCursor.close();
+            // Go to the end of the list
+            final ScrollView scroll = (ScrollView) findViewById(R.id.smsListScrollView);
+            scroll.post(new Runnable() {
+                @Override
+                public void run() {
+                    //scroll.fullScroll(View.FOCUS_DOWN);
+                    scroll.scrollTo(0, scroll.getBottom());
+                }
+            });
         }
     }
 
@@ -94,6 +106,15 @@ public class SmsListActivity extends AppCompatActivity {
                     // Construction et remplissage des sms
                     buildSmsView(resCursor);
                     resCursor.close();
+                    // Go to the end of the list
+                    final ScrollView scroll = (ScrollView) findViewById(R.id.smsListScrollView);
+                    scroll.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            //scroll.fullScroll(View.FOCUS_DOWN);
+                            scroll.scrollTo(0, scroll.getBottom());
+                        }
+                    });
                 }
                 else {
 
@@ -122,13 +143,11 @@ public class SmsListActivity extends AppCompatActivity {
             // Creation du smsContainer et de ses textView
             LinearLayout smsContainer = new LinearLayout(this);
             TextView numView = new TextView(this);
-            TextView typeView = new TextView(this);
             TextView dateView = new TextView(this);
             TextView bodyView = new TextView(this);
 
             // Set le champs des textView du sms
             numView.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.ADDRESS)));
-            typeView.setText(resCursor.getString(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.TYPE)));
             Date date_mili = new Date(resCursor.getLong(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.DATE)));
             String formattedDate = new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date_mili);
             dateView.setText(formattedDate);
@@ -142,22 +161,32 @@ public class SmsListActivity extends AppCompatActivity {
             // Set les params des textView
             LinearLayout.LayoutParams textViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
+            textViewParams.setMargins(15, 0, 15, 0);
             numView.setLayoutParams(textViewParams);
-            typeView.setLayoutParams(textViewParams);
             dateView.setLayoutParams(textViewParams);
             bodyView.setLayoutParams(textViewParams);
 
-            // Set les params du smsContainer
-            LinearLayout.LayoutParams smsViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+            // Set la size et les params du smsContainer
+            Display display = getWindowManager().getDefaultDisplay();
+            Point size = new Point();
+            display.getSize(size);
+            LinearLayout.LayoutParams smsViewParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
                     LinearLayout.LayoutParams.WRAP_CONTENT);
+            smsViewParams.width = size.x - 300;
             smsViewParams.setMargins(10, 10, 10, 10);
-            smsContainer.setLayoutParams(smsViewParams);
-            smsContainer.setBackgroundColor(getResources().getColor(R.color.blueAccent));
             smsContainer.setOrientation(LinearLayout.VERTICAL);
+            if (resCursor.getInt(resCursor.getColumnIndex(Telephony.TextBasedSmsColumns.TYPE)) == 1) {
+                smsContainer.setBackgroundColor(getResources().getColor(R.color.blueAccent));
+                smsViewParams.gravity = Gravity.LEFT;
+            }
+            else {
+                smsContainer.setBackgroundColor(getResources().getColor(R.color.hipsterPrimaryDark));
+                smsViewParams.gravity = Gravity.RIGHT;
+            }
+            smsContainer.setLayoutParams(smsViewParams);
 
             // Add les textViews au smsContainer
             smsContainer.addView(numView);
-            smsContainer.addView(typeView);
             smsContainer.addView(dateView);
             smsContainer.addView(bodyView);
 
@@ -173,8 +202,5 @@ public class SmsListActivity extends AppCompatActivity {
                     LinearLayout.LayoutParams.WRAP_CONTENT));
             smsListContainer.addView(errorView);
         }
-        // Go to the end of the list
-        ScrollView scroll = (ScrollView) findViewById(R.id.smsListScrollView);
-        scroll.scrollTo(0, scroll.getBottom());
     }
 }
