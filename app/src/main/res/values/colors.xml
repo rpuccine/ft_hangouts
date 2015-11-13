@@ -17,5 +17,6 @@
     <color name="black">#000000</color>
     <color name="red">#FF0000</color>
 
-    <color name="testPink">#555522</color>
+    <color name="testPink">#FF00FF</color>
+    <color name="testOlder">#CC9999</color>
 </resources>

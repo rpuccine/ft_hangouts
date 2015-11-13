@@ -95,6 +95,7 @@ public class ContactDetails extends AppCompatActivity {
 
                 Intent smsIntent = new Intent(getApplicationContext(), SmsListActivity.class);
                 smsIntent.putExtra(SmsListActivity.EXTRA_PHONE, tel.getText());
+                smsIntent.putExtra(SmsListActivity.EXTRA_FIRSTNAME, firstName.getText());
                 startActivity(smsIntent);
 
             }

@@ -31,5 +31,7 @@
     <string name="pref_theme_dialog_title">Choisissez un Theme</string>
     <string name="pref_theme_key">KEY_THEME</string>
 
+    <string name="sms_hint">Type msg</string>
+
 
 </resources>
