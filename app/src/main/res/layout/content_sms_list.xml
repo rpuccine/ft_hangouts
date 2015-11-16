@@ -15,7 +15,7 @@
     <ScrollView
         android:id="@+id/smsListScrollView"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/smsDialog"
+        android:layout_above="@+id/smsDialogContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/testPink">
@@ -32,33 +32,36 @@
 
     </ScrollView>
 
-    <!--
+
     <RelativeLayout
         android:id="@+id/smsDialogContainer"
+        android:background="@color/testBlueClear"
+        android:layout_alignParentBottom="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        -->
-
 
         <EditText
             android:id="@+id/smsDialog"
-            android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/smsSendButton"
+            android:layout_centerVertical="true"
+            android:minLines="2"
+            android:maxLines="3"
             android:hint="@string/sms_hint"
             android:background="@color/hipsterPrimary"
             android:inputType="textMultiLine"/>
 
-
-        <!--
-        <android.support.design.widget.FloatingActionButton android:id="@+id/smsSendButton"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_gravity="center|end" android:layout_margin="@dimen/fab_margin"
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/smsSendButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="@dimen/fab_margin"
             android:src="@drawable/ic_done" />
-            -->
 
-    <!--
     </RelativeLayout>
-    -->
+
 
 </RelativeLayout>

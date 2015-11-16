@@ -19,4 +19,5 @@
 
     <color name="testPink">#FF00FF</color>
     <color name="testOlder">#CC9999</color>
+    <color name="testBlueClear">#CCCCFF</color>
 </resources>
