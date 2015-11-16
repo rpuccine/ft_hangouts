@@ -82,15 +82,9 @@ public class SmsListActivity extends AppCompatActivity {
             // Construction et remplissage des sms
             buildSmsView(resCursor);
             resCursor.close();
+
             // Go to the end of the list
             final ScrollView scroll = (ScrollView) findViewById(R.id.smsListScrollView);
-            /*scroll.post(new Runnable() {
-                @Override
-                public void run() {
-                    //scroll.fullScroll(scroll.FOCUS_DOWN);
-                    scroll.scrollTo(0, scroll.getBottom());
-                }
-            });*/
             scroll.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                 @Override
                 public void onGlobalLayout() {
@@ -123,15 +117,9 @@ public class SmsListActivity extends AppCompatActivity {
                     // Construction et remplissage des sms
                     buildSmsView(resCursor);
                     resCursor.close();
+
                     // Go to the end of the list
                     final ScrollView scroll = (ScrollView) findViewById(R.id.smsListScrollView);
-                    /*scroll.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            //scroll.fullScroll(scroll.FOCUS_DOWN);
-                            scroll.scrollTo(0, scroll.getBottom());
-                        }
-                    });*/
                     scroll.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
                         @Override
                         public void onGlobalLayout() {
